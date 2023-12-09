@@ -16,6 +16,60 @@
   Once you've implemented the logic, test your code by running
 */
 
-class Calculator {}
+class Calculator {
+  currentResult;
+
+  // Constants for readability
+  END_MARKER = "#";
+  ARITHMETIC_OPERATORS = ["+", "-", "*", "/"];
+  OPERATORS_AND_IDENTIFIERS = [
+    ...this.ARITHMETIC_OPERATORS,
+    ")",
+    this.END_MARKER,
+  ];
+
+  constructor() {
+    this.currentResult = 0;
+  }
+
+  // Basic arithmetic operations
+  add(number) {
+    this.currentResult += number;
+  }
+
+  subtract(number) {
+    this.currentResult -= number;
+  }
+
+  multiply(number) {
+    this.currentResult *= number;
+  }
+
+  divide(number) {
+    if (number !== 0) {
+      this.currentResult /= number;
+    } else {
+      throw new Error("Division by zero is not allowed");
+    }
+  }
+
+  // Clear the calculator result
+  clear() {
+    this.currentResult = 0;
+  }
+
+  // Get the current result
+  getResult() {
+    return this.currentResult;
+  }
+
+  // Main method to evaluate and update the result
+  calculate(expression) {
+    this.currentResult = eval(expression);
+    if (!Number.isFinite(this.currentResult)) {
+      throw new Error(`Infinite value detected`);
+    }
+  }
+}
 
 module.exports = Calculator;
